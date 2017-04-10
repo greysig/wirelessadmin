@@ -12,12 +12,11 @@ def networkAttrib ():
 	return number, typeSig, seenFirst, seenLast
 
 
-def ssidSeen():
-				
-			for ssid in network.iterfind('SSID'):
-				seenFirst = ssid.get('first-time') 
-				seenLast = ssid.get('last-time')
-				print seenFirst, seenLast
+def ssidSeen():			
+		for ssid in network.iterfind('SSID'):
+			seenFirst = ssid.get('first-time') 
+			seenLast = ssid.get('last-time')
+			print seenFirst, seenLast
 
 def ssidDetails(key):
 	for network in doc.iterfind('wireless-network'):
@@ -57,22 +56,38 @@ def encode(key):
 			for encode in network.iterfind('encoding'):
 				print 'Encoding: '+ encode.text
 
+
+def infraopt():
+	print' ========================================================'
+	print' [1] List found ESSID '
+	print' [2] Know the ESSID? Look it up '
+	print' [0] Back '
+	opt=input('Whats it going to be?  ')
+	if opt==1:
+		listNet()
+		lookupNet()
+	if opt==2:
+		lookupNet()
+
 def lookupNet():
+		
 	value=''
 	value=raw_input('What is the name of the network?\n:')
-		
+	
 	for keys, val in eD.iteritems():
 		if val == value:
 			key=keys
 			loop=1
-		
+	
 			while (loop==1):
 				print' [1] SSID details '
 				print' [2] BSSID '
 				print' [3] Frequency, Channel, Carrier, Encoding '
 				print' [4] Print all '
 				print' [0] Back'
+	
 				opt=input('\n#:')
+					
 				if (opt ==1):
 					print '========================'
 					print value
@@ -92,7 +107,7 @@ def lookupNet():
 					carrier(key)
 					encode(key)
 					print '========================'
-				elif (opt == 4 ):
+				elif (opt ==4):
 					print '========================'
 					print
 					print'SSID Details'
@@ -103,22 +118,24 @@ def lookupNet():
 					encode(key)
 					print'========================='
 				elif (opt ==0):
-			 		break
+		 			break
+				
 		else:
 			print 'Network not found'
+	
 
 
 def listNet():
-	print'=========================================================='
-	print eD
+	print'========================================================='
+	print eD.values()
 	print'=========================================================='
 
 
 def cloakedNet():
-	print '======================================================='
+	print '======================================================'
 	print 'There are' , len(cD.keys()), 'cloaked networks' 
-	print '======================================================='
-	print cD
+	print ''
+	print cD.values()
 	print' ======================================================='
 
 
@@ -132,13 +149,14 @@ def cloakedNet():
 
 			loop =1
 			while (loop == 1):
-			
+				
 				print' [1] SSID details '
         	                print' [2] Frequency, Channel, Carrier, Encoding '
         	                print' [3] Print all '
        	        	  	print' [0] Back'
                        		opt=input('\n#:')
-                       		if (opt ==1):
+                       		
+				if (opt ==1):
                                 	print '========================'
                                		print value
 					print 'SSID Details'
@@ -147,9 +165,11 @@ def cloakedNet():
                         	elif (opt ==2):
                                		print '========================'
                                		print value
-					bssid(key)
+					freq_channel(key)
+					carrier(key)
+					encode(key)
                                 	print '========================'
-                               	elif (opt == 3 ):
+                               	elif (opt ==3):
                                 	print '========================'
                                 	print value
 					print'SSID Details'
@@ -176,17 +196,14 @@ def infra():
 	while (loop == 1):
 		
 		print (' [1]  Search known network ')
-		print (' [2]  Look up list of networks ')
-		print (' [3]  Cloaked networks ')
-		print (' [0]  Back')
+		print (' [2]  Cloaked Networks ' )
+		print (' [0]  Back ')
 		opt=input('\n: ')
 
 		if (opt == 1):
-			lookupNet()
+			infraopt()
 
 		elif(opt == 2):
-			listNet() 
-		elif(opt == 3):
 			cloakedNet()
 
 		elif (opt == 0):
@@ -202,6 +219,7 @@ def menu():
 	print' What would you like to do...within the power of this little code :)'
 	print''
 	while ( loop == 1):
+		print'========================================================'
 		print' What would you like to do?'
 		print' [1] To access infrastructure networks '
 		print' [2] To access probes '
@@ -237,7 +255,7 @@ eD={}
 cD={}
 pD={}
 
-u = open('starbucks.netxml', 'r') 
+u = open('YOURFILE.netxml', 'r') 
 doc = parse(u)
 
 
