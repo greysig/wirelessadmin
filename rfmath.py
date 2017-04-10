@@ -35,7 +35,7 @@ def ruleofrules():
 		print 'Quit [0]'
 		print 'Restart [8]'
 		print ''
-		num = input (' ')
+		num = input ('')
 				  
 		if (num == 3):
 			total_dBm= total_dBm+3 
