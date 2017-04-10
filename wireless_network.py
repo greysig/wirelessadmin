@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+
 from  xml.etree.ElementTree import parse 
 
 
@@ -57,6 +58,18 @@ def encode(key):
 				print 'Encoding: '+ encode.text
 
 
+def wirelessClient(key):
+	for network in doc.iterfind('wireless-network'):
+		if network.get('number')==key:
+			for client in network.iterfind('wireless-client'):
+				print 'Client:',client.get('number'),'details.'
+				print 'MAC Address: '+client.findtext('client-mac')
+				print 'Channel: '+ client.findtext('channel')
+				print 'Frequency: '+client.findtext('freqmhz')
+				print"========================="
+		
+
+ 
 def infraopt():
 	print' ========================================================'
 	print' [1] List found ESSID '
@@ -80,26 +93,30 @@ def lookupNet():
 			loop=1
 	
 			while (loop==1):
-				print' [1] SSID details '
-				print' [2] BSSID '
-				print' [3] Frequency, Channel, Carrier, Encoding '
-				print' [4] Print all '
+				print' [1] Show wireless clients '
+				print' [2] SSID details '
+				print' [3] BSSID '
+				print' [4] Frequency, Channel, Carrier, Encoding '
+				print' [5] Print all '
 				print' [0] Back'
 	
 				opt=input('\n#:')
-					
-				if (opt ==1):
+				if (opt==1):
+					print'=========================='
+					wirelessClient(key)
+					print'========================='
+				if (opt ==2):
 					print '========================'
 					print value
 					print 'SSID Details'
 					ssidDetails(key)
 					print '========================'
-				elif (opt ==2):
+				elif (opt ==3):
 					print '========================'
 					print
 					bssid(key)
 					print '========================'
-				elif (opt ==3):
+				elif (opt ==4):
 					print '========================'
 					print 
 					print 'Frequency, Channel, Carrier, Encoding'
@@ -107,7 +124,7 @@ def lookupNet():
 					carrier(key)
 					encode(key)
 					print '========================'
-				elif (opt ==4):
+				elif (opt ==5):
 					print '========================'
 					print
 					print'SSID Details'
@@ -119,16 +136,14 @@ def lookupNet():
 					print'========================='
 				elif (opt ==0):
 		 			break
-				
-		else:
-			print 'Network not found'
+	
 	
 
 
 def listNet():
 	print'========================================================='
-	print eD.values()
-	print'=========================================================='
+	print eD.values()		
+	print'========================================================='
 
 
 def cloakedNet():
@@ -149,27 +164,30 @@ def cloakedNet():
 
 			loop =1
 			while (loop == 1):
-				
-				print' [1] SSID details '
-        	                print' [2] Frequency, Channel, Carrier, Encoding '
-        	                print' [3] Print all '
+				print' [1] Show Clients and details '	
+				print' [2] SSID details '
+        	                print' [3] Frequency, Channel, Carrier, Encoding '
+        	                print' [4] Print all '
        	        	  	print' [0] Back'
                        		opt=input('\n#:')
-                       		
-				if (opt ==1):
+                       		if (opt==1):
+					print'========================'
+					wirelessClient(key)
+					print'========================'
+				if (opt ==2):
                                 	print '========================'
                                		print value
 					print 'SSID Details'
                                 	ssidDetails(key)
                                 	print '========================'
-                        	elif (opt ==2):
+                        	elif (opt ==3):
                                		print '========================'
                                		print value
 					freq_channel(key)
 					carrier(key)
 					encode(key)
                                 	print '========================'
-                               	elif (opt ==3):
+                               	elif (opt ==4):
                                 	print '========================'
                                 	print value
 					print'SSID Details'
@@ -181,14 +199,11 @@ def cloakedNet():
                                 	print'========================='
                         	elif (opt ==0):
                                 	break
-        	else:
-                	print 'Network not found'
+        		
 
 	
 	
 def infra():
-		
-		
 	print'========================================================================='	
 	print 'There are', len(eD.keys()),'ESSIDs and',len(cD.keys()),'Cloaked ESSIDs'
 	print'=========================================================================='
@@ -254,8 +269,10 @@ def essidE():
 eD={}
 cD={}
 pD={}
-
-u = open('YOURFILE.netxml', 'r') 
+print'================================================================='
+print'================================================================='
+xml=raw_input('Type the path and name of your file you wish to analys:  ')
+u = open(xml, 'r') 
 doc = parse(u)
 
 
