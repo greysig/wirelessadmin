@@ -16,7 +16,7 @@ def solve_dBm():
 
 def solve_mW():
 	dBm=input('What is your dBm? ')
-	mW=math.pow(10,(dBm/10))
+	mW=math.pow(10,(dBm/float(10)))
 	print ''
 	print 'Your mW is: ',mW
 	

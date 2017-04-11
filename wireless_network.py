@@ -1,7 +1,9 @@
 #! /usr/bin/env python
 
 from  xml.etree.ElementTree import parse 
-
+eD={}
+cD={}
+pD={}
 
 
 def networkAttrib ():
@@ -62,12 +64,36 @@ def wirelessClient(key):
 	for network in doc.iterfind('wireless-network'):
 		if network.get('number')==key:
 			for client in network.iterfind('wireless-client'):
-				print 'Client:',client.get('number'),'details.'
-				print 'MAC Address: '+client.findtext('client-mac')
-				print 'Channel: '+ client.findtext('channel')
-				print 'Frequency: '+client.findtext('freqmhz')
-				print"========================="
-		
+				
+				print 'Client number is',client.get('number'),' and type of client: '+client.get('type')
+				print'Seen at: '+client.get('first-time')
+				
+				try:
+					for ssid in client.iterfind('SSID/'):
+						print ssid.tag+': '+ ssid.text
+				except(TypeError):
+					print 'No SSID details found'
+				try:	
+					print 'MAC Address: '+client.findtext('client-mac')
+				except(TypeError):
+                                        print 'No Mac address found'
+				try:	
+					print 'Channel: '+ client.findtext('channel')
+				except(TypeError):
+                                        print 'No Channel found'	
+				try:
+					print 'Carrier: '+ client.findtext('carrier')
+				except(TypeError):
+					print 'No Carrier found' 
+				try:	
+					print 'Frequency: '+client.findtext('freqmhz')
+				except(TypeError):
+                                        print 'No Frequency found'	
+				try:	
+					print 'Encoding: '+client.findtext('encoding')
+				except(TypeError):
+                                        print 'No Encoding found'	
+					print'========================'
 
  
 def infraopt():
@@ -266,20 +292,27 @@ def essidE():
 
 
 
-eD={}
-cD={}
-pD={}
+
+	
+
+
+
 print'================================================================='
 print'================================================================='
 xml=raw_input('Type the path and name of your file you wish to analys:  ')
 u = open(xml, 'r') 
 doc = parse(u)
 
-
 print '======================================================='
 essidE()
 print '======================================================='
-menu()									
+menu(doc)
+
+
+
+
+
+									
 
 
 
