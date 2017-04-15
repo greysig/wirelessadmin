@@ -1,9 +1,9 @@
 #! /usr/bin/env python
-
 from  xml.etree.ElementTree import parse 
 eD={}
 cD={}
 pD={}
+
 
 
 def networkAttrib ():
@@ -253,7 +253,8 @@ def infra():
 		else:
 			print 'Not an option...'
 
-def menu():
+def Kismet_menu(doc):
+
 	loop=1
 	
 	print' Playing with kismet .netxml files?'
@@ -297,19 +298,23 @@ def essidE():
 
 
 
-print'================================================================='
-print'================================================================='
-xml=raw_input('Type the path and name of your file you wish to analys:  ')
-u = open(xml, 'r') 
-doc = parse(u)
-
-print '======================================================='
-essidE()
-print '======================================================='
-menu(doc)
 
 
 
+def kismet_main():
+
+	print'================================================================='
+	print'================================================================='
+	xml=raw_input('Type the path and name of your file you wish to analys:  ')
+	u = open(xml, 'r') 
+	global doc
+	doc = parse(u)
+	print '======================================================='
+	essidE()
+	print '======================================================='
+	Kismet_menu(doc)
+
+	
 
 
 									

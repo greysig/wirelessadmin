@@ -163,6 +163,27 @@ def fresnel_anypoint():
 	print''
 
 
+#Calculating how high something has to be
+def earth_bulge():
+	
+	#calculate hight to compensate for earth 
+	print ' ========================================= '
+	print ' Use if antennas are 7 or more miles apart '
+	D=input(' What is the distance between the two antennas? \n ')
+	float(D)
+	print '' 
+	H=(math.pow(D, 2)/float(8))
+	float(H)
+	print''
+	ob=input( ' What is the height of the obstacle? \n ')
+	print''
+	F=input(' What is the frequency you are operating ')
+	print''
+	print ' Cacluating the height of the antenna with a 60% Fresnel Zone... '
+	total_height= (ob+H+(43.3*math.sqrt(D/ float(4*F))))
+	print 'The height of the antenna shoud be: ',total_height,'ft'	
+
+
 
 #creating a menu to choose between the midpoit or any point
 def fres_menu():
@@ -173,18 +194,22 @@ def fres_menu():
 		print''
 		print' [1] Calculate at midpoint between two antennas '
 		print' [2] Calculate at any point between two antennas ' 
+		print' [3] Calulate Height of antenna in feet '
 		print' [0] Back '
+	
 		opt=input(' ')
 	
 		if opt==1:
 			print''
 			fresnel_midpoint()
 
-		if opt==2:
+		elif opt==2:
 			print''
 			fresnel_anypoint()
-		
-		if opt==0:
+		elif opt==3:
+			print''
+			earth_bulge()
+		elif opt==0:
 			break
 
 #main menu
@@ -226,4 +251,4 @@ def main_menu():
 
 
 
-main_menu()
+
