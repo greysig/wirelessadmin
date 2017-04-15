@@ -37,7 +37,7 @@ def ruleofrules():
 	total_dBm=0
 	total_mW=1
 	print' ================================================================== '
-	print 'Super lazy code using the rule of 10s and 3s to find dBm or mW :)'
+	print 'Estimate the dBm or mW need with  rule of 10s and 3s :)'
 	print ' '
 	num=''	
 	while(num != 0):
