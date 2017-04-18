@@ -17,7 +17,7 @@ BSSID, Frequency, Channel, Carrier, and Encoding.
 File will ask for the path/to/file  and then add the networks found allowing you to search for the above mentioned details.
 
 
-##To Run
+## To Run
 
 Simply run the main.py file or if you want the just run one of the files scroll to the bottom and uncomment out the main function.
 
