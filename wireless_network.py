@@ -5,7 +5,7 @@ cD={}
 pD={}
 
 
-
+#Gets network attributes
 def networkAttrib ():
 	number = network.get('number')
 	sigType = network.get('type') 
@@ -15,12 +15,16 @@ def networkAttrib ():
 	return number, typeSig, seenFirst, seenLast
 
 
+#SSID attributes
 def ssidSeen():			
 		for ssid in network.iterfind('SSID'):
 			seenFirst = ssid.get('first-time') 
 			seenLast = ssid.get('last-time')
 			print seenFirst, seenLast
 
+
+
+#Returns SSID details from file
 def ssidDetails(key):
 	for network in doc.iterfind('wireless-network'):
 		if network.get('number')==key:
@@ -31,6 +35,9 @@ def ssidDetails(key):
 					print'No essid'
 					pass
 
+
+
+#Returns network BSSID or mac address of AP or Client
 def bssid(key):		
 	for network in doc.iterfind('wireless-network'):
 		if  network.get('number')==key:
@@ -38,6 +45,8 @@ def bssid(key):
 				print 'BSSID:', bssid.text
 
 
+
+#Returns the frequency and channel found
 def freq_channel(key):
 	for network in doc.iterfind('wireless-network'):
                 if network.get('number')==key:
@@ -47,12 +56,16 @@ def freq_channel(key):
 				print 'CH: ' + channel.text
 
 
+
+#Returns IEEE carrier that is being used by the network
 def carrier(key):
 	for network in doc.iterfind('wireless-network'):
                 if network.get('number')== key:
 			for carry in network.iterfind('carrier'):
 				print 'Carrier: '+ carry.text
 
+
+#Returns the network encoding being used 
 def encode(key):
 	for network in doc.iterfind('wireless-network'):
                 if network.get('number')==key:
@@ -60,6 +73,8 @@ def encode(key):
 				print 'Encoding: '+ encode.text
 
 
+
+#Retruns wireless clients that are connected to the network 
 def wirelessClient(key):
 	for network in doc.iterfind('wireless-network'):
 		if network.get('number')==key:
@@ -96,6 +111,8 @@ def wirelessClient(key):
 					print'========================'
 
  
+
+#Run infrastructure options menu
 def infraopt():
 	print' ========================================================'
 	print' [1] List found ESSID '
@@ -108,6 +125,9 @@ def infraopt():
 	if opt==2:
 		lookupNet()
 
+
+
+#Match network name to network key then allows the user to loop up info
 def lookupNet():
 		
 	value=''
@@ -166,12 +186,15 @@ def lookupNet():
 	
 
 
+#prints a list of all the network names found
 def listNet():
 	print'========================================================='
 	print eD.values()		
 	print'========================================================='
 
 
+
+#tells you how may networks are cloaked and prints the BSSID to let you choose and look up further information
 def cloakedNet():
 	print '======================================================'
 	print 'There are' , len(cD.keys()), 'cloaked networks' 
@@ -228,7 +251,8 @@ def cloakedNet():
         		
 
 	
-	
+
+#chosing between looking at known networks or cloaked
 def infra():
 	print'========================================================================='	
 	print 'There are', len(eD.keys()),'ESSIDs and',len(cD.keys()),'Cloaked ESSIDs'
@@ -253,6 +277,9 @@ def infra():
 		else:
 			print 'Not an option...'
 
+
+
+#chosing between infrastucture netowkrs and probe
 def Kismet_menu(doc):
 
 	loop=1
@@ -277,6 +304,8 @@ def Kismet_menu(doc):
 			print 'Not an option'	
 
 
+
+#tells user what was added
 def essidE():
 	for network in doc.iterfind('wireless-network'):
 		if network.get('type') == 'infrastructure':
@@ -300,12 +329,12 @@ def essidE():
 
 
 
-
+#main menu that allows you to input the netxml file
 def kismet_main():
 
 	print'================================================================='
 	print'================================================================='
-	xml=raw_input('Type the path and name of your file you wish to analys:  ')
+	xml=raw_input('Type the path and name of your file you wish to analysis:  ')
 	u = open(xml, 'r') 
 	global doc
 	doc = parse(u)
@@ -319,7 +348,9 @@ def kismet_main():
 
 									
 
+#To run just this file uncomment out the below function
 
+#kismet_main()
 
 
 
